@@ -29,19 +29,13 @@ def init_retrieve_model():
     )
     return retriever
 
-@st.cache_resource
-def init_pinecone():
 
-    pinecone.init(
+pinecone.init(
     api_key=str(os.environ['PINECONE_API_KEY']), 
     environment=str(os.environ['PINECONE_ENV']) 
-    )
-    index = pinecone.Index(index_name='sentiment-mining')\
-    return index
-
-index = init_pinecone()    
-
-
+)
+index = pinecone.Index(index_name='sentiment-mining')\
+   
 retriever = init_retrieve_model()
 
 
