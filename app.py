@@ -40,8 +40,13 @@ def init_pinecone():
     index_name = str(os.environ['PINECONE_INDEX_NAME'])
     return index
 
-
-index = init_pinecone()
+@st.cache_resource
+def load_pinecone_existing_index():
+    pass
+    index = Pinecone.from_existing_index(index_name=os.environ['PINECONE_INDEX_NAME'], embedding=embeddings)
+    return index
+    
+index=load_pinecone_existing_index()
 
 retriever = init_retrieve_model()
 
