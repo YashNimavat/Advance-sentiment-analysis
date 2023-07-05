@@ -37,7 +37,6 @@ def init_pinecone():
     environment=str(os.environ['PINECONE_ENV']) 
     )
     index = pinecone.Index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
-    return index
 
 
 index = init_pinecone()    
