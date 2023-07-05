@@ -1,1 +1,5 @@
-
+matplotlib
+pandas
+numpy
+pinecone-client
+sentence-transformers
