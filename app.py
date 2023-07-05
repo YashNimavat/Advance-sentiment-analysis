@@ -39,9 +39,9 @@ def init_pinecone():
 
 
 init_pinecone()    
-index = pinecone.Index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
+index = pinecone.index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
 
-init_retrieve_model()
+retriever = init_retrieve_model()
 
 
 query = 'Give me hotel list'
