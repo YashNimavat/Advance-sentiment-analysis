@@ -37,8 +37,6 @@ def init_pinecone():
     api_key=str(os.environ['PINECONE_API_KEY']), 
     environment=str(os.environ['PINECONE_ENV']) 
     )
-    index_name = str(os.environ['PINECONE_INDEX_NAME'])
-    return index
 
 @st.cache_resource
 def load_pinecone_existing_index():
