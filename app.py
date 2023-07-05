@@ -36,8 +36,8 @@ def init_pinecone():
     api_key=str(os.environ['PINECONE_API_KEY']), 
     environment=str(os.environ['PINECONE_ENV']) 
     )
-    index = pinecone.Index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
-
+    index = pinecone.Index(index_name='sentiment-mining')\
+    return index
 
 index = init_pinecone()    
 
