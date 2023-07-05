@@ -36,7 +36,8 @@ def init_pinecone():
     pinecone.init(
     api_key=str(os.environ['PINECONE_API_KEY']), 
     environment=str(os.environ['PINECONE_ENV']) 
-    )index_name = str(os.environ['PINECONE_INDEX_NAME'])
+    )
+    index_name = str(os.environ['PINECONE_INDEX_NAME'])
     return index
 
 
