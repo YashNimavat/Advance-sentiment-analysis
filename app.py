@@ -36,10 +36,12 @@ def init_pinecone():
     api_key=str(os.environ['PINECONE_API_KEY']), 
     environment=str(os.environ['PINECONE_ENV']) 
     )
+    index = pinecone.Index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
+    return index
 
 
-init_pinecone()    
-index = pinecone.index(index_name=str(os.environ['PINECONE_INDEX_NAME'])
+index = init_pinecone()    
+
 
 retriever = init_retrieve_model()
 
