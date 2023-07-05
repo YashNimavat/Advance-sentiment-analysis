@@ -3,3 +3,5 @@ pandas
 numpy
 pinecone-client
 sentence-transformers
+seaborn
+torch
