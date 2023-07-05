@@ -27,7 +27,6 @@ def init_retrieve_model():
         'sentence-transformers/all-MiniLM-L6-v2',
         device=device
     )
-    retriever=retriever
     return retriever
 
 @st.cache_resource
