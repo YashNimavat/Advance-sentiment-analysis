@@ -136,7 +136,7 @@ if st.session_state.stage >= 3:
         hotel_sentiments.append({"hotel": hotel, "df": pd.DataFrame(result)})
 
     # create the figure and axes to plot barchart for all hotels
-    fig, axs = plt.subplots(nrows=1, ncols=len(hotels), figsize=(25, 4.5))
+    fig, axs = plt.subplots(nrows=1, ncols=len(hotels), figsize=(50, 5))
     plot=plt.subplots_adjust(hspace=0.25)
 
     counter = 0
