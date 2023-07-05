@@ -40,7 +40,7 @@ def init_pinecone():
 
 
     
-index=pinecone.describe_index(PINECONE_INDEX_NAME)
+index=pinecone.describe_index(os.environ['PINECONE_INDEX_NAME'])
 
 retriever = init_retrieve_model()
 
