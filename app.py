@@ -38,13 +38,9 @@ def init_pinecone():
     environment=str(os.environ['PINECONE_ENV']) 
     )
 
-@st.cache_resource
-def load_pinecone_existing_index():
-    pass
-    index = pinecone.from_existing_index(index_name=os.environ['PINECONE_INDEX_NAME'], embedding=embeddings)
-    return index
+
     
-index=load_pinecone_existing_index()
+index=pinecone.describe_index(PINECONE_INDEX_NAME)
 
 retriever = init_retrieve_model()
 
