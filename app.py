@@ -52,11 +52,9 @@ def init_retrieve_model():
         index_info["name"] for index_info in pc.list_indexes()
     ]
     index = pc.Index(index_name)
-# pinecone.init(
-#     api_key=str(os.environ['PINECONE_API_KEY']), 
-#     environment=str(os.environ['PINECONE_ENV']) 
-# )
-# index = pinecone.Index(index_name=os.environ['PINECONE_INDEX_NAME'])
+
+
+    index_name = 'sentiment-mining'
 
 
 # check if the sentiment-mining index exists
@@ -68,9 +66,28 @@ def init_retrieve_model():
             metric="cosine"
         )
 
+        # wait for index to be initialized
+        while not pc.describe_index(index_name).status['ready']:
+            time.sleep(1)
+
+    # connect to index
+    index = pc.Index(index_name)
+    time.sleep(1)
+    # view index stats
+    index.describe_index_stats()
+
+
+#-----------------old 2023 method---------------------------------#
+    # pinecone.init(
+    #     api_key=str(os.environ['PINECONE_API_KEY']), 
+    #     environment=str(os.environ['PINECONE_ENV']) 
+    # )
+    # index = pinecone.Index(index_name=os.environ['PINECONE_INDEX_NAME'])
+
     # connect to sentiment-mining index we created
     # index = Pinecone.Index(index_name)
-    index = pc.Index(index_name)
+#-----------------old 2023 method---------------------------------#
+
    
 retriever = init_retrieve_model()
 
