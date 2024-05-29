@@ -172,10 +172,17 @@ if st.session_state.stage >= 3:
         result = []
         # iterate through the keys and values in the queries dict
         for area, query in queries.items():
+
+            # xq = retriever.encode(query).tolist()
+            # # query pinecone
+            # result = index.query(vector=xq, top_k=500, include_metadata=True)
+
+
+            
             # generate query embeddings
             xq = retriever.encode(query).tolist()
             # query pinecone with query embeddings and the hotel filter
-            xc = index.query(xq, top_k=500, include_metadata=True, filter={"hotel_name": hotel})
+            xc = index.query(vector=xq, top_k=500, include_metadata=True, filter={"hotel_name": hotel})
             # get an overall count of customer sentiment
             sentiment = count_sentiment(xc)
             # sort the sentiment to show area and each value side by side
