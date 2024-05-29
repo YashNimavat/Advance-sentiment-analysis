@@ -89,7 +89,7 @@ def init_retrieve_model():
    
 retriever = init_retrieve_model()
 
-
+index = pc.Index(index_name)
 query = 'Give me hotel list'
 xq = retriever.encode(query).tolist()
 # query pinecone
