@@ -97,7 +97,7 @@ print("Index stats:",index.describe_index_stats())
 query = 'Give me hotel list'
 xq = retriever.encode(query).tolist()
 # query pinecone
-result = index.query(xq, top_k=500, include_metadata=True)
+result = index.query(vector=xq, top_k=500, include_metadata=True)
 
 if 'stage' not in st.session_state:
     st.session_state.stage = 0
