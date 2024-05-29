@@ -34,23 +34,23 @@ def init_retrieve_model():
 
 
 
-# initialize connection to pinecone (get API key at app.pinecone.io)
-api_key = str(os.environ.get('PINECONE_API_KEY'))
+    # initialize connection to pinecone (get API key at app.pinecone.io)
+    api_key = str(os.environ.get('PINECONE_API_KEY'))
 
-# configure client
-pc = pinecone(api_key=api_key)
+    # configure client
+    pc = pinecone(api_key=api_key)
 
-cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
-region = os.environ.get('Pinecone_REGION') or 'us-east-1'
+    cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
+    region = os.environ.get('Pinecone_REGION') or 'us-east-1'
 
-spec = ServerlessSpec(cloud=cloud, region=region)
+    spec = ServerlessSpec(cloud=cloud, region=region)
 
 
-index_name = 'sentiment-mining'
+    index_name = 'sentiment-mining'
 
-existing_indexes = [
-    index_info["name"] for index_info in pc.list_indexes()
-]
+    existing_indexes = [
+        index_info["name"] for index_info in pc.list_indexes()
+    ]
 
 # pinecone.init(
 #     api_key=str(os.environ['PINECONE_API_KEY']), 
@@ -60,17 +60,17 @@ existing_indexes = [
 
 
 # check if the sentiment-mining index exists
-if index_name not in existing_indexes:
-    # create the index if it does not exist
-    Pinecone.create_index(
-        index_name,
-        dimension=384,
-        metric="cosine"
-    )
+    if index_name not in existing_indexes:
+        # create the index if it does not exist
+        Pinecone.create_index(
+            index_name,
+            dimension=384,
+            metric="cosine"
+        )
 
-# connect to sentiment-mining index we created
-# index = Pinecone.Index(index_name)
-index = pc.Index(index_name)
+    # connect to sentiment-mining index we created
+    # index = Pinecone.Index(index_name)
+    index = pc.Index(index_name)
    
 retriever = init_retrieve_model()
 
