@@ -10,6 +10,7 @@ import time
 
 from sentence_transformers import SentenceTransformer
 from pinecone import ServerlessSpec
+from pinecone import Pinecone
 
 st.write(
     """
@@ -56,7 +57,7 @@ retriever = init_retrieve_model()
 api_key = str(os.environ['PINECONE_API_KEY'])
 
 # configure client
-pc = pinecone(api_key=api_key)
+pc = Pinecone(api_key=api_key)
 
 cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
 region = os.environ.get('Pinecone_REGION') or 'us-east-1'
