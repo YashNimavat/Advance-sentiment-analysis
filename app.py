@@ -34,45 +34,7 @@ def init_retrieve_model():
 
 
 
-    # initialize connection to pinecone (get API key at app.pinecone.io)
-    api_key = str(os.environ.get('PINECONE_API_KEY')) or 'e11c8516-cc32-4241-bf3c-f3e3fb2f0e72'
 
-    # configure client
-    pc = pinecone(api_key=api_key)
-
-    cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
-    region = os.environ.get('Pinecone_REGION') or 'us-east-1'
-
-    spec = ServerlessSpec(cloud=cloud, region=region)
-
-
-    index_name = 'sentiment-mining'
-
-    existing_indexes = [
-        index_info["name"] for index_info in pc.list_indexes()
-    ]
-    index = pc.Index(index_name)
-
-
-# check if the sentiment-mining index exists
-    if index_name not in existing_indexes:
-        # create the index if it does not exist
-        Pinecone.create_index(
-            index_name,
-            dimension=384,
-            metric="cosine"
-        )
-
-        # wait for index to be initialized
-        while not pc.describe_index(index_name).status['ready']:
-            time.sleep(1)
-
-    # connect to index
-    index = pc.Index(index_name)
-    time.sleep(1)
-    # view index stats
-    print("Index Name: ",index)
-    print("Index stats:",index.describe_index_stats())
 
 
 #-----------------old 2023 method---------------------------------#
@@ -89,7 +51,48 @@ def init_retrieve_model():
    
 retriever = init_retrieve_model()
 
+#------------------------------------------------#
+# initialize connection to pinecone (get API key at app.pinecone.io)
+api_key = str(os.environ.get('PINECONE_API_KEY')) or 'e11c8516-cc32-4241-bf3c-f3e3fb2f0e72'
+
+# configure client
+pc = pinecone(api_key=api_key)
+
+cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
+region = os.environ.get('Pinecone_REGION') or 'us-east-1'
+
+spec = ServerlessSpec(cloud=cloud, region=region)
+
+
+index_name = 'sentiment-mining'
+
+existing_indexes = [
+        index_info["name"] for index_info in pc.list_indexes()
+]
 index = pc.Index(index_name)
+
+
+# check if the sentiment-mining index exists
+if index_name not in existing_indexes:
+        # create the index if it does not exist
+    Pinecone.create_index(
+        index_name,
+        dimension=384,
+        metric="cosine"
+    )
+
+        # wait for index to be initialized
+    while not pc.describe_index(index_name).status['ready']:
+        time.sleep(1)
+
+# connect to index
+index = pc.Index(index_name)
+time.sleep(1)
+# view index stats
+print("Index Name: ",index)
+print("Index stats:",index.describe_index_stats())
+
+#------------------------------------------------#
 query = 'Give me hotel list'
 xq = retriever.encode(query).tolist()
 # query pinecone
