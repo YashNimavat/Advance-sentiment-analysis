@@ -32,6 +32,14 @@ def init_retrieve_model():
     )
     return retriever
 
+
+
+# initialize connection to pinecone (get API key at app.pinecone.io)
+api_key = os.environ.get('PINECONE_API_KEY')
+
+# configure client
+pc = pinecone(api_key=api_key)
+
 cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
 region = os.environ.get('Pinecone_REGION') or 'us-east-1'
 
