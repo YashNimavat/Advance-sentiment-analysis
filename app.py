@@ -54,9 +54,6 @@ def init_retrieve_model():
     index = pc.Index(index_name)
 
 
-    index_name = 'sentiment-mining'
-
-
 # check if the sentiment-mining index exists
     if index_name not in existing_indexes:
         # create the index if it does not exist
@@ -74,7 +71,8 @@ def init_retrieve_model():
     index = pc.Index(index_name)
     time.sleep(1)
     # view index stats
-    index.describe_index_stats()
+    print("Index Name: ",index)
+    print("Index stats:",index.describe_index_stats())
 
 
 #-----------------old 2023 method---------------------------------#
