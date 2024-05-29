@@ -51,7 +51,7 @@ def init_retrieve_model():
     existing_indexes = [
         index_info["name"] for index_info in pc.list_indexes()
     ]
-
+    index = pc.Index(index_name)
 # pinecone.init(
 #     api_key=str(os.environ['PINECONE_API_KEY']), 
 #     environment=str(os.environ['PINECONE_ENV']) 
