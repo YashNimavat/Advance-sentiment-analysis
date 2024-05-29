@@ -6,8 +6,10 @@ import pinecone
 import torch
 import seaborn as sns
 import os
+import time
 
 from sentence_transformers import SentenceTransformer
+from pinecone import ServerlessSpec
 
 st.write(
     """
@@ -15,6 +17,7 @@ st.write(
     """
 )
 st.caption('Follow the step-by-step instruction to compare customer’s sentiments about the different hotels :sunglasses:')
+
 
 # set device to GPU if available
 device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
@@ -29,12 +32,37 @@ def init_retrieve_model():
     )
     return retriever
 
+cloud = os.environ.get('Pinecone_CLOUD') or 'aws'
+region = os.environ.get('Pinecone_REGION') or 'us-east-1'
 
-pinecone.init(
-    api_key=str(os.environ['PINECONE_API_KEY']), 
-    environment=str(os.environ['PINECONE_ENV']) 
-)
-index = pinecone.Index(index_name=os.environ['PINECONE_INDEX_NAME'])
+spec = ServerlessSpec(cloud=cloud, region=region)
+
+
+index_name = 'sentiment-mining'
+
+existing_indexes = [
+    index_info["name"] for index_info in pc.list_indexes()
+]
+
+# pinecone.init(
+#     api_key=str(os.environ['PINECONE_API_KEY']), 
+#     environment=str(os.environ['PINECONE_ENV']) 
+# )
+# index = pinecone.Index(index_name=os.environ['PINECONE_INDEX_NAME'])
+
+
+# check if the sentiment-mining index exists
+if index_name not in existing_indexes:
+    # create the index if it does not exist
+    Pinecone.create_index(
+        index_name,
+        dimension=384,
+        metric="cosine"
+    )
+
+# connect to sentiment-mining index we created
+# index = Pinecone.Index(index_name)
+index = pc.Index(index_name)
    
 retriever = init_retrieve_model()
 
