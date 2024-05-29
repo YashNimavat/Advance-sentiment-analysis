@@ -53,7 +53,7 @@ retriever = init_retrieve_model()
 
 #------------------------------------------------#
 # initialize connection to pinecone (get API key at app.pinecone.io)
-api_key = str(os.environ.get('PINECONE_API_KEY')) or 'e11c8516-cc32-4241-bf3c-f3e3fb2f0e72'
+api_key = str(os.environ['PINECONE_API_KEY'])
 
 # configure client
 pc = pinecone(api_key=api_key)
