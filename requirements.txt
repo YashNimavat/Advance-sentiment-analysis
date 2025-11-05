@@ -1,7 +1,7 @@
 matplotlib
 pandas
 numpy
-pinecone-client
+pinecone
 sentence-transformers
 seaborn
 torch
